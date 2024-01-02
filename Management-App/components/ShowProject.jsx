@@ -14,6 +14,11 @@ export default function ShowProject({
   const taskRef = useRef();
 
   const formattedDescription = project.description.replace(/\n/g, "\n");
+  const formattedDate = new Date(project.dueDate).toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
   return (
     <div className="basis-3/4 min-h-screen">
       <div className=" w-4/5 ml-12 mt-28">
@@ -25,7 +30,7 @@ export default function ShowProject({
             onClick={() => deleteProject(project)}
           />
         </div>
-        <p className="text-xl text-stone-400 my-4">{project.dueDate}</p>
+        <p className="text-xl text-stone-400 my-4">{formattedDate}</p>
         <pre className="text-lg text-stone-600 my-6 whitespace-pre-wrap">
           {formattedDescription}
         </pre>
@@ -33,7 +38,7 @@ export default function ShowProject({
         <h1 className="text-zinc-800 text-4xl font-bold my-6">Tasks</h1>
         <input
           type="text"
-          className="bg-stone-200 rounded-sm w-1/2 h-12 text-xl text-stone-800 font-medium px-3 mb-4"
+          className="bg-stone-200 rounded-sm w-1/2 h-12 text-xl text-stone-800 focus:bg-zinc-800 focus:text-amber-100 font-medium px-3 mb-4"
           ref={taskRef}
         ></input>
         <button

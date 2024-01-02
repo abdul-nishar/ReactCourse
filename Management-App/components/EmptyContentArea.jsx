@@ -1,4 +1,5 @@
 /* eslint-disable */
+import image from "../src/assets/no-projects.png";
 import Button from "./Button";
 
 export default function EmptyContentArea({ onShow }) {
@@ -6,7 +7,7 @@ export default function EmptyContentArea({ onShow }) {
     <div className="basis-3/4 text-center min-h-screen mt-10 flex items-start justify-center pt-28">
       <div className="">
         <p>
-          <img className="h-24 mx-auto" src="./src/assets/no-projects.png" />
+          <img className="h-24 mx-auto" src={image} />
         </p>
         <h2 className="my-8 text-2xl  text-stone-700 font-semibold">
           No Project Selected
@@ -16,7 +17,7 @@ export default function EmptyContentArea({ onShow }) {
         </p>
         <Button
           onClick={onShow}
-          additionalClasses="bg-stone-700 text-stone-400"
+          additionalClasses="bg-stone-700 text-stone-400 hover:text-stone-300"
           text="Create new project"
         >
           Create new project
