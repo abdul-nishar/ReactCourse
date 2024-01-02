@@ -1,17 +1,18 @@
 /* eslint-disable */
 import { UniqueNumber } from "unique-string-generator";
+import { useContext } from "react";
+import { ManagementContext } from "../store/management-context";
 
 import { useRef } from "react";
 import Button from "./Button";
 import Task from "./Tasks";
 
-export default function ShowProject({
-  project,
-  deleteProject,
-  createTask,
-  clearTask,
-}) {
+export default function ShowProject({}) {
+  const { FindProject, DeleteProject, CreateTask, DeleteTask } =
+    useContext(ManagementContext);
   const taskRef = useRef();
+
+  const project = FindProject();
 
   const formattedDescription = project.description.replace(/\n/g, "\n");
   const formattedDate = new Date(project.dueDate).toLocaleDateString("en-us", {
@@ -27,7 +28,7 @@ export default function ShowProject({
           <Button
             additionalClasses="text-2xl text-stone-600 hover:text-red-600"
             text="Delete"
-            onClick={() => deleteProject(project)}
+            onClick={() => DeleteProject(project)}
           />
         </div>
         <p className="text-xl text-stone-400 my-4">{formattedDate}</p>
@@ -44,7 +45,7 @@ export default function ShowProject({
         <button
           onClick={() => {
             if (taskRef.current.value !== "")
-              createTask(
+              CreateTask(
                 { task: taskRef.current.value, id: UniqueNumber() },
                 project
               );
@@ -59,7 +60,7 @@ export default function ShowProject({
             {project.tasks.map((taskObj) => (
               <Task
                 key={taskObj.id}
-                clearTask={() => clearTask(taskObj.id, project.id)}
+                clearTask={() => DeleteTask(taskObj.id, project.id)}
               >
                 {taskObj.task}
               </Task>

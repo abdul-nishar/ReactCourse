@@ -1,12 +1,14 @@
 /* eslint-disable */
 import { UniqueNumber } from "unique-string-generator";
+import { useRef, useContext } from "react";
 
-import { useRef } from "react";
+import { ManagementContext } from "../store/management-context";
 import Input from "./CustomInput";
 import Button from "./Button";
 import Modal from "./Modal";
 
-export default function CreateProject({ onHide, onSave }) {
+export default function CreateProject() {
+  const { ShowNoProject, SaveProject } = useContext(ManagementContext);
   const modal = useRef();
   const titleRef = useRef();
   const descRef = useRef();
@@ -29,7 +31,7 @@ export default function CreateProject({ onHide, onSave }) {
         <div className="w-2/3 mx-36 relative mt-32">
           <p className="flex justify-end">
             <Button
-              onClick={onHide}
+              onClick={ShowNoProject}
               text="Cancel"
               additionalClasses="text-zinc-950"
             />
@@ -40,14 +42,14 @@ export default function CreateProject({ onHide, onSave }) {
                 const projectDueDate = dueDateRef.current.value;
 
                 if (projectTitle && projectDescription && projectDueDate) {
-                  onSave({
+                  SaveProject({
                     title: titleRef.current.value,
                     description: descRef.current.value,
                     dueDate: dueDateRef.current.value,
                     id: UniqueNumber(),
                     tasks: [],
                   });
-                  onHide();
+                  ShowNoProject();
                 } else modal.current.open();
               }}
               text="Save"

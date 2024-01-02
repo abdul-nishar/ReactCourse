@@ -1,8 +1,11 @@
 /* eslint-disable */
+import { useContext } from "react";
+import { ManagementContext } from "../store/management-context";
 import image from "../src/assets/no-projects.png";
 import Button from "./Button";
 
-export default function EmptyContentArea({ onShow }) {
+export default function EmptyContentArea() {
+  const { ShowCreatePage } = useContext(ManagementContext);
   return (
     <div className="basis-3/4 text-center min-h-screen mt-10 flex items-start justify-center pt-28">
       <div className="">
@@ -16,7 +19,7 @@ export default function EmptyContentArea({ onShow }) {
           Select a project or get started with a new one
         </p>
         <Button
-          onClick={onShow}
+          onClick={ShowCreatePage}
           additionalClasses="bg-stone-700 text-stone-400 hover:text-stone-300"
           text="Create new project"
         >
