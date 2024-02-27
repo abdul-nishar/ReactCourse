@@ -1,8 +1,9 @@
 import { useState, useRef } from "react";
 
 import Header from "./components/Header";
-import { fetchFoodItems, fetchOrderRequest } from "./http";
-import { useFetch } from "../src/hooks/useFetch";
+// import { fetchFoodItems, fetchOrderRequest } from "./http";
+// import { useFetch } from "../src/hooks/useFetch";
+import { foodItems } from "./assets/meals";
 import CartModal from "./components/CartModal";
 import CheckoutModal from "./components/CheckoutModal";
 import OrderSuccessModal from "./components/OrderSuccessModal";
@@ -10,7 +11,8 @@ import Meals from "./components/Meals";
 import LandingPage from "./components/LandingPage";
 
 function App() {
-  const { fetchedData: foodItems } = useFetch(fetchFoodItems, []);
+  // const { fetchedData: foodItems } = useFetch(fetchFoodItems, []);
+
   const [cartItems, setCartItems] = useState([]);
   const cartModalDialog = useRef();
   const checkoutModalDialog = useRef();
@@ -84,7 +86,7 @@ function App() {
       quantity: item.quantity,
       price: item.price,
     }));
-    await fetchOrderRequest(order);
+    // await fetchOrderRequest(order);
 
     checkoutModalDialog.current.close();
     orderSuccessModalDialog.current.open();
