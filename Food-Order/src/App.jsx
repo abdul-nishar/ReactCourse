@@ -3,10 +3,11 @@ import { useState, useRef } from "react";
 import Header from "./components/Header";
 import { fetchFoodItems, fetchOrderRequest } from "./http";
 import { useFetch } from "../src/hooks/useFetch";
-import FoodItem from "./components/FoodItem";
 import CartModal from "./components/CartModal";
 import CheckoutModal from "./components/CheckoutModal";
 import OrderSuccessModal from "./components/OrderSuccessModal";
+import Meals from "./components/Meals";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const { fetchedData: foodItems } = useFetch(fetchFoodItems, []);
@@ -94,6 +95,24 @@ function App() {
     setCartItems([]);
   }
 
+  function revealAnimation() {
+    var reveals = document.querySelectorAll(".meal-item");
+
+    for (var i = 0; i < reveals.length; i++) {
+      var windowHeight = window.innerHeight;
+      var revealTop = reveals[i].getBoundingClientRect().top;
+      var revealPoint = 40;
+
+      if (revealTop < windowHeight - revealPoint) {
+        reveals[i].classList.add("active");
+      } else {
+        reveals[i].classList.remove("active");
+      }
+    }
+  }
+  revealAnimation();
+  window.addEventListener("scroll", revealAnimation);
+
   return (
     <>
       <OrderSuccessModal
@@ -113,15 +132,8 @@ function App() {
         openCheckout={handleCheckoutModal}
       />
       <Header items={cartItems.length} openModal={handleCartModal} />
-      <ul id="meals">
-        {foodItems.map((foodItem) => (
-          <FoodItem
-            key={foodItem.id}
-            foodObj={foodItem}
-            addToCart={() => handleCartItems(foodItem)}
-          />
-        ))}
-      </ul>
+      <LandingPage></LandingPage>
+      <Meals foodItems={foodItems} openMeals={handleCartItems} />
     </>
   );
 }
