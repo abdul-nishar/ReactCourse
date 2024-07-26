@@ -4,7 +4,7 @@ export default function FoodItem({ foodObj, addToCart }) {
   return (
     <li className="meal-item">
       <article>
-        <img src={`http://localhost:3000/${foodObj.image}`} alt="food-item" />
+        <img src={`/${foodObj.image}`} alt="food-item" />
         <div>
           <h3>{foodObj.name}</h3>
           <span className="meal-item-price">${foodObj.price}</span>
